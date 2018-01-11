@@ -1,5 +1,6 @@
 import json
 import requests
+import os
 
 from token_utils import Token_utils
 import consts
@@ -16,14 +17,24 @@ class Upload:
         tu = Token_utils
         access_token = tu.reget_token()
 
+        images = {
+                'jpeg',
+                'png',
+                'gif',
+                'webp'
+                }
+
+        videos = {
+                }
+
         headers = {
             'Content-Type': 'image/jpeg',
-            'Content-Length': '${LENGTH',
-            'Slug': '${FILE}',
+            'Content-Length': os.path.getsize(path),
+            'Slug': path,
         }
 
         params = (
-            ('access_token', '${ACCESS_TOKEN}'),
+            ('access_token', access_token),
         )
 
         with open('path', 'rb') as f:
@@ -32,6 +43,4 @@ class Upload:
         response = requests.post(consts.ENDPOINT_URL + user_id,
                 headers=headers, params=params, data=data)
 
-        response = requests.post('${ENDPOINT}?'
-                + 'access_token=${ACCESS_TOKEN}', headers=headers, data=data)
-
+        return response

@@ -1,4 +1,6 @@
 from token_utils import Token_utils
+from upload import Upload
 
-test = Token_utils()
-print(test.reget_token())
+test = Upload()
+print(test.upload('./test.jpg'))
+
