@@ -1,6 +1,9 @@
-from token_utils import Token_utils
+import sys
+
 from upload import Upload
 
+argvs = sys.argv
+
 test = Upload()
-print(test.upload('./test.jpg'))
+print(test.upload(str(argvs[1])))
 

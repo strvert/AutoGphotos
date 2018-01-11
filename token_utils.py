@@ -33,7 +33,6 @@ class Token_utils:
         r = requests.post(consts.TOKEN_URL, data=params)
 
         r_dict = r.json()
-        access_token = r_dict['access_token']
         refresh_token = r_dict['refresh_token']
 
         client_dict = {
@@ -47,19 +46,19 @@ class Token_utils:
     def reget_token(self):
 
         with open(consts.TOKEN_PATH, 'r') as f:
-            param_dict = json.load(f)
+            self.param_dict = json.load(f)
 
-        params = {
-                'refresh_token': param_dict['refresh_token'],
-                'client_id': param_dict['client_id'],
-                'client_secret': param_dict['client_secret'],
+        self.params = {
+                'refresh_token': self.param_dict['refresh_token'],
+                'client_id': self.param_dict['client_id'],
+                'client_secret': self.param_dict['client_secret'],
                 'grant_type': 'refresh_token'
                 }
-        r = requests.post(consts.TOKEN_URL, data=params)
-        r_dict = r.json()
-        access_token = r_dict['access_token']
+        self.r = requests.post(consts.TOKEN_URL, data=self.params)
+        self.r_dict = self.r.json()
+        self.access_token = self.r_dict['access_token']
 
-        return(access_token)
+        return(self.access_token)
 
 
 
